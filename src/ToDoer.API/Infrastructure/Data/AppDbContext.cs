@@ -3,18 +3,23 @@ namespace ToDoer.API.Infrastructure.Data
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Features.Tasks.Data;
+    using Identity;
     using MADE.Data.EFCore.Converters;
     using MADE.Data.EFCore.Extensions;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using ToDoer.API.Features.Identity.Data;
 
-    public class AppDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+    public class
+        AppDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
         }
+
+        public DbSet<TaskList> TaskLists { get; set; }
 
         public override DbSet<User> Users { get; set; }
 
@@ -41,13 +46,30 @@ namespace ToDoer.API.Infrastructure.Data
             return new AppDbContext(options);
         }
 
+        public Task<int> SaveChangesAsync(AuthenticatedUser user, CancellationToken cancellationToken = default)
+        {
+            this.SetEntityUser(user);
+            return this.SaveChangesAsync(cancellationToken);
+        }
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             this.SetEntityDates();
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        public Task<int> SaveChangesAsync(
+            AuthenticatedUser user,
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
+        {
+            this.SetEntityUser(user);
+            return this.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
         {
             this.SetEntityDates();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);

@@ -2,11 +2,11 @@ namespace ToDoer.API.Features.Authentication.API
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Logout;
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using ToDoer.API.Features.Authentication.Domain.Login;
+    using ToDoer.API.Features.Authentication.Domain.Logout;
     using ToDoer.API.Infrastructure.API;
     using ToDoer.API.Infrastructure.Identity;
 

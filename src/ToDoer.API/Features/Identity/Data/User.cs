@@ -4,6 +4,7 @@ namespace ToDoer.API.Features.Identity.Data
     using System.Collections.Generic;
     using MADE.Data.Validation.Extensions;
     using Microsoft.AspNetCore.Identity;
+    using ToDoer.API.Features.Tasks.Data;
 
     public class User : IdentityUser<Guid>
     {
@@ -22,6 +23,8 @@ namespace ToDoer.API.Features.Identity.Data
         public string Name => $"{this.FirstName} {this.LastName}";
 
         public string DisplayName => this.Name.IsNullOrWhiteSpace() ? this.Email : this.Name;
+
+        public ICollection<TaskList> TaskLists { get; set; } = new List<TaskList>();
 
         public override string ToString()
         {
