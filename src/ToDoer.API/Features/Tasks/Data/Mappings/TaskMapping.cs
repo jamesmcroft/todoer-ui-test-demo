@@ -5,9 +5,9 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using ToDoer.API.Infrastructure.Data;
 
-    public class TaskMapping : IEntityTypeConfiguration<Task>
+    public class TaskMapping : IEntityTypeConfiguration<TaskListTask>
     {
-        public void Configure(EntityTypeBuilder<Task> builder)
+        public void Configure(EntityTypeBuilder<TaskListTask> builder)
         {
             builder.ToTable("Tasks");
             builder.ConfigureUserGeneratedEntity();

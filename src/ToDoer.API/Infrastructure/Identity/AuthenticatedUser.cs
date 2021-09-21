@@ -16,7 +16,7 @@ namespace ToDoer.API.Infrastructure.Identity
 
             if (subject == null || emailAddress == null)
             {
-                throw new ArgumentNullException(nameof(claimsPrincipal), "Authenticated user details could not be found.");
+                throw new ArgumentNullException(nameof(claimsPrincipal), "Authenticated user details could not be found");
             }
 
             Id = Guid.Parse(subject);

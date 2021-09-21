@@ -23,6 +23,7 @@ namespace ToDoer.API.Features.Authentication.API
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> LoginAsync(
             [FromBody] LoginRequestDto request,
             CancellationToken cancellationToken = default)
@@ -34,6 +35,7 @@ namespace ToDoer.API.Features.Authentication.API
 
         [HttpPost]
         [Route("logout")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> LogoutAsync(
             CancellationToken cancellationToken = default)
         {
