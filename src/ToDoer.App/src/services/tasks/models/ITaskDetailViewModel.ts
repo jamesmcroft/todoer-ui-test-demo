@@ -6,4 +6,5 @@ export default interface ITaskDetailViewModel {
   important: boolean;
   completed: boolean;
   completedDate: Date | null;
+  createdDate: Date
 }

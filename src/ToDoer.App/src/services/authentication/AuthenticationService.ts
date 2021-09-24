@@ -20,7 +20,7 @@ class AuthenticationService {
   async login(email: string, password: string) {
     const result = await new JsonPostRequest(axiosClient, this.endpoints.authentication.login, { email, password }, { ApiVersion: this.authenticationApiVersion }).execute();
 
-    if (result.isSuccessStatusCode) {
+    if (result.isSuccessStatusCode()) {
       Emitter.$emit('logged-in');
     }
 
@@ -30,7 +30,7 @@ class AuthenticationService {
   async logout() {
     const result = await new JsonPostRequest(axiosClient, this.endpoints.authentication.logout, {}, { ApiVersion: this.authenticationApiVersion }).execute();
 
-    if (result.isSuccessStatusCode) {
+    if (result.isSuccessStatusCode()) {
       Emitter.$emit('logged-out');
     }
 

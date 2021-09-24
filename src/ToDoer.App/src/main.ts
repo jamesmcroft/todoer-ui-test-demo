@@ -11,10 +11,12 @@ import store from "./store";
 import "bootstrap";
 import DateTimeFormat from "./core/styling/DateTimeFormat";
 import CoreComponents from "./core/components/CoreComponents";
+import GlobalToast from "./core/components/messaging/GlobalToast";
 
 const app = createApp(App);
 
 DateTimeFormat.install(app);
+GlobalToast.install(app);
 
 app.use(VueAxios, axios);
 app.use(CoreComponents);

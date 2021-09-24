@@ -4,16 +4,20 @@ namespace ToDoer.API.Features.Identity.Data.Seeders
     using MADE.Data.Validation.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
+    using ToDoer.API.Features.Tasks.Data;
+    using ToDoer.API.Infrastructure.Data;
     using ToDoer.API.Infrastructure.Data.Seeders;
 
     public class TestUserSeeder : IDataSeeder
     {
         private readonly UserManager<User> userManager;
         private readonly IConfiguration configuration;
+        private readonly AppDbContext dbContext;
 
-        public TestUserSeeder(UserManager<User> userManager, IConfiguration configuration)
+        public TestUserSeeder(UserManager<User> userManager, AppDbContext dbContext, IConfiguration configuration)
         {
             this.userManager = userManager;
+            this.dbContext = dbContext;
             this.configuration = configuration;
         }
 
@@ -47,7 +51,18 @@ namespace ToDoer.API.Features.Identity.Data.Seeders
                     AcceptTermsAndConditions = true
                 };
 
-                await this.userManager.CreateAsync(user, password);
+                var result = await this.userManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                    var taskList = new TaskList
+                    {
+                        AssignedToId = user.Id, Name = "My Tasks", CreatedById = user.Id, UpdatedById = user.Id
+                    };
+
+                    await this.dbContext.AddAsync(taskList);
+                    await this.dbContext.SaveChangesAsync();
+                }
             }
         }
     }

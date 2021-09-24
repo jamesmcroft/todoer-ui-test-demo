@@ -17,5 +17,7 @@
         public bool Completed { get; set; }
 
         public DateTime? CompletedDate { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

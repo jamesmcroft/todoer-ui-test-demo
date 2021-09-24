@@ -13,6 +13,7 @@
         id="tasksSidebar"
         :selectedTaskList="selectedTaskList"
         v-if="selectedTaskList"
+        @updated="onTaskUpdated"
       />
     </div>
   </div>
@@ -21,8 +22,10 @@
 <script lang="ts">
 import TaskListSidebar from "../components/tasks/TaskListSidebar.vue";
 import TasksSidebar from "../components/tasks/TasksSidebar.vue";
+import { showErrorMessage } from "../core/components/messaging/ToastHelper";
 import { isUndefinedOrNull } from "../core/utils/inspect";
 import authenticationService from "../services/authentication/AuthenticationService";
+import ITaskDetailViewModel from "../services/tasks/models/ITaskDetailViewModel";
 import ITaskListDetailViewModel from "../services/tasks/models/ITaskListDetailViewModel";
 import ITaskListSummaryViewModel from "../services/tasks/models/ITaskListSummaryViewModel";
 import tasksService from "../services/tasks/TasksService";
@@ -46,8 +49,8 @@ export default {
     async load() {
       this.isLoading = true;
       var result = await tasksService.getMyTaskLists();
-      if (!result.isSuccessStatusCode) {
-        console.log(result);
+      if (!result.isSuccessStatusCode()) {
+        showErrorMessage(this, "Couldn't retrieve task lists");
       } else {
         this.taskLists = result.content;
       }
@@ -56,14 +59,17 @@ export default {
     async onTaskListSelected(taskList: ITaskListSummaryViewModel) {
       if (!isUndefinedOrNull(taskList)) {
         var result = await tasksService.getTaskList(taskList.id);
-        if (!result.isSuccessStatusCode) {
-          console.log(result);
+        if (!result.isSuccessStatusCode()) {
+          showErrorMessage(this, "Couldn't retrieve task list details");
         } else {
           this.selectedTaskList = result.content;
         }
       } else {
         this.selectedTaskList = null;
       }
+    },
+    async onTaskUpdated(task: ITaskDetailViewModel) {
+      await this.onTaskListSelected(this.selectedTaskList);
     },
   },
 };

@@ -1,47 +1,191 @@
 <template>
   <div class="d-flex flex-column align-items-stretch bg-white">
     <div
-      class="d-flex align-items-center p-3 text-decoration-none border-bottom"
+      class="
+        d-flex
+        align-items-center
+        p-3
+        text-decoration-none
+        border-bottom
+        mb-3
+      "
     >
-      <span class="fs-5 fw-semibold">{{ selectedTaskList.name }}</span>
+      <span class="tasks-title fs-5 fw-semibold">{{
+        selectedTaskList.name
+      }}</span>
     </div>
-    <div class="list-group list-group-flush border-bottom scrollarea">
-      <button
-        v-for="task in tasks"
+
+    <t-input
+      id="addTaskInput"
+      placeholder="Add a task"
+      class="mb-3"
+      @keyup.enter="onAddTask"
+      :model="v$.addTask.name"
+    />
+
+    <div class="border-bottom" />
+
+    <div
+      class="
+        task-group
+        list-group list-group-flush
+        border-bottom
+        scrollarea
+        mb-3
+      "
+    >
+      <task-item
+        v-for="task in incompleteTasks"
         :key="task.id"
-        class="list-group-item list-group-item-action py-3 lh-tight"
-        aria-current="true"
-      >
-        <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">{{ task.name }}</strong>
-          <t-check-box />
-        </div>
-        <div class="col-10 mb-1 small">
-          Due {{ $dateFilters.taskDate(task.dueDate) }}
-        </div>
-      </button>
+        :task="task"
+        @update="onUpdateTask"
+        @delete="onDeleteTask"
+      />
     </div>
+
+    <t-accordion
+      id="completedTasksList"
+      header="Completed"
+      v-if="hasCompletedTasks"
+    >
+      <div
+        class="
+          completed-task-group
+          list-group list-group-flush
+          border-bottom
+          scrollarea
+        "
+      >
+        <task-item
+          v-for="task in completedTasks"
+          :key="task.id"
+          :task="task"
+          @update="onUpdateTask"
+          @delete="onDeleteTask"
+          class="completed-task-item"
+        />
+      </div>
+    </t-accordion>
   </div>
 </template>
 
 <script lang="ts">
 import { isUndefinedOrNull } from "../../core/utils/inspect";
 import { defineProp, idProp } from "../../core/utils/props";
+import IAddTaskRequest from "../../services/tasks/models/IAddTaskRequest";
+import ITaskDetailViewModel from "../../services/tasks/models/ITaskDetailViewModel";
+import tasksService from "../../services/tasks/TasksService";
+import TaskItem from "./TaskItem.vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import _ from "lodash";
+import { showErrorMessage } from "../../core/components/messaging/ToastHelper";
 
 export default {
+  setup() {
+    return { v$: useVuelidate() };
+  },
+  components: { TaskItem },
   name: "TasksSidebar",
   props: {
     ...idProp,
     selectedTaskList: defineProp(Object, true),
   },
+  data() {
+    return {
+      editTask: null as ITaskDetailViewModel,
+      addTask: {
+        name: "",
+      } as IAddTaskRequest,
+    };
+  },
+  validations() {
+    return {
+      addTask: {
+        name: {
+          required,
+        },
+      },
+    };
+  },
   computed: {
+    taskListId() {
+      return this.selectedTaskList?.id;
+    },
     tasks() {
       return !isUndefinedOrNull(this.selectedTaskList)
         ? this.selectedTaskList.tasks
         : [];
     },
+    incompleteTasks() {
+      return _.sortBy(
+        this.tasks.filter((task: { completed: boolean }) => !task.completed),
+        ["createdDate"],
+        ["desc"]
+      );
+    },
+    hasIncompleteTasks() {
+      return this.incompletedTasks.length > 0;
+    },
+    completedTasks() {
+      return _.sortBy(
+        this.tasks.filter((task: { completed: boolean }) => task.completed),
+        ["createdDate"],
+        ["desc"]
+      );
+    },
+    hasCompletedTasks() {
+      return this.completedTasks.length > 0;
+    },
   },
-  methods: {},
+  methods: {
+    async onAddTask() {
+      this.v$.$touch();
+      if (!this.v$.addTask.$invalid) {
+        var result = await tasksService.addTaskToList(
+          this.taskListId,
+          this.addTask
+        );
+
+        if (!result.isSuccessStatusCode()) {
+          showErrorMessage(this, "Add task failed");
+          return;
+        } else {
+          this.addTask.name = "";
+          this.v$.$reset();
+
+          this.$emit("updated");
+        }
+      }
+    },
+    async onUpdateTask(task: ITaskDetailViewModel) {
+      var result = await tasksService.updateTaskOnList(
+        this.selectedTaskList.id,
+        task.id,
+        task
+      );
+
+      if (!result.isSuccessStatusCode()) {
+        showErrorMessage(this, "Update task failed");
+        return;
+      }
+
+      this.$emit("updated", task);
+    },
+    async onDeleteTask(task: ITaskDetailViewModel) {
+      var result = await tasksService.deleteTaskFromList(
+        this.selectedTaskList.id,
+        task.id
+      );
+
+      if (!result.isSuccessStatusCode()) {
+        showErrorMessage(this, "Delete task failed");
+        return;
+      }
+
+      this.$emit("updated", task);
+    },
+  },
 };
 </script>
 

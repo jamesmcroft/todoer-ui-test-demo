@@ -10,11 +10,13 @@
   "dependencies": {
     "@popperjs/core": "^2.10.1",
     "@types/bootstrap": "^5.1.6",
+    "@types/lodash": "^4.14.173",
     "@vuelidate/core": "^2.0.0-alpha.26",
     "@vuelidate/validators": "^2.0.0-alpha.22",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
     "made-collections": "^0.1.0-alpha.10",
     "made-data-converters": "^0.1.0-alpha.10",
     "made-data-validation": "^0.1.0-alpha.10",

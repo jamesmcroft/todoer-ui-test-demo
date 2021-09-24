@@ -12,3 +12,4 @@ export { default as TToastPanel } from './messaging/TToastPanel.vue';
 
 /* Layouts */
 export { default as AppLayout } from './layout/AppLayout.vue';
+export { default as TAccordion } from './layout/TAccordion.vue';

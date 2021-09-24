@@ -27,7 +27,8 @@
                     DueDate = task.DueDate,
                     Important = task.Important,
                     Completed = task.Completed,
-                    CompletedDate = task.CompletedDate
+                    CompletedDate = task.CompletedDate,
+                    CreatedDate = task.CreatedDate
                 })
             };
         }

@@ -4,9 +4,15 @@
       class="d-flex align-items-center p-3 text-decoration-none border-bottom"
     >
       <span class="fs-5 fw-semibold">Task lists</span>
-      <t-button class="ms-auto"> Add </t-button>
     </div>
-    <div class="list-group list-group-flush border-bottom scrollarea">
+    <div
+      class="
+        task-list-group
+        list-group list-group-flush
+        border-bottom
+        scrollarea
+      "
+    >
       <button
         v-for="taskList in taskLists"
         :key="taskList.id"

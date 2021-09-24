@@ -31,6 +31,7 @@
 import { defineComponent } from "@vue/runtime-core";
 import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
+import { showErrorMessage } from "../../core/components/messaging/ToastHelper";
 
 import authenticationService from "../../services/authentication/AuthenticationService";
 
@@ -71,8 +72,8 @@ export default defineComponent({
           this.login.password
         );
 
-        if (!result.isSuccessStatusCode) {
-          console.log(result);
+        if (!result.isSuccessStatusCode()) {
+          showErrorMessage(this, "Login failed");
           return;
         } else {
           this.$router.push({ name: "index" });
