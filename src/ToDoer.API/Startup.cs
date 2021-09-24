@@ -69,15 +69,15 @@ namespace ToDoer.API
             services.AddDataSeeder<TestUserSeeder>();
 
             services.AddAuthentication(
-                options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
+                    options =>
+                    {
+                        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultForbidScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    })
                 .AddCookie(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     options =>
@@ -100,26 +100,38 @@ namespace ToDoer.API
                     });
 
             services.AddMvcCore(
-                options =>
-                {
-                    AuthorizationPolicy policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-                    options.Filters.Add(new AuthorizeFilter(policy));
-                    options.EnableEndpointRouting = false;
-                })
+                    options =>
+                    {
+                        AuthorizationPolicy
+                            policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                        options.Filters.Add(new AuthorizeFilter(policy));
+                        options.EnableEndpointRouting = false;
+                    })
                 .AddNewtonsoftJson(options => JsonConstants.ApplyTo(options.SerializerSettings))
                 .AddAuthorization(options =>
                 {
-                    options.DefaultPolicy = new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+                    options.DefaultPolicy =
+                        new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .RequireAuthenticatedUser().Build();
                     options.AddPermissionPolicies();
                 })
                 .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
             services.AddApiVersionHeaderSupport();
 
-            services.AddCors(o => o.AddPolicy(AllowOrigins, builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddCors(o => o.AddPolicy(
+                AllowOrigins,
+                builder => builder
+                    .WithOrigins(appSettings.BaseAppUrl)
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider apiVersionProvider)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IApiVersionDescriptionProvider apiVersionProvider)
         {
             if (env.IsDevelopment())
             {
@@ -142,8 +154,8 @@ namespace ToDoer.API
         private static void UpdateDatabase(IApplicationBuilder app)
         {
             using IServiceScope serviceScope = app.ApplicationServices
-                                                  .GetRequiredService<IServiceScopeFactory>()
-                                                  .CreateScope();
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope();
             using AppDbContext context = serviceScope.ServiceProvider.GetService<AppDbContext>();
             context?.Database.Migrate();
 

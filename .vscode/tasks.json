@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build_todoer",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/src/ToDoer.API/ToDoer.API.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "npm_install_todoer",
+      "type": "npm",
+      "script": "install",
+      "path": "src/ToDoer.App/",
+      "problemMatcher": [],
+    }
+  ]
+}

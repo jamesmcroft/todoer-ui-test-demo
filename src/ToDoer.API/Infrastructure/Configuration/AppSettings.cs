@@ -10,17 +10,26 @@ namespace ToDoer.API.Infrastructure.Configuration
 
         protected const string SqlConnectionStringKey = "SqlConnectionString";
 
-        public AppSettings(string sqlConnectionString)
+        protected const string BaseAppUrlKey = "BaseAppUrl";
+
+        public AppSettings(string sqlConnectionString, string baseAppUrl)
         {
-            SqlConnectionString = sqlConnectionString.IsNullOrWhiteSpace() ? throw new ArgumentNullException(nameof(sqlConnectionString)) : sqlConnectionString;
+            SqlConnectionString = sqlConnectionString.IsNullOrWhiteSpace()
+                ? throw new ArgumentNullException(nameof(sqlConnectionString))
+                : sqlConnectionString;
+            BaseAppUrl = baseAppUrl.IsNullOrWhiteSpace()
+                ? throw new ArgumentNullException(nameof(baseAppUrl))
+                : baseAppUrl;
         }
+
+        public string BaseAppUrl { get; }
 
         public string SqlConnectionString { get; }
 
         public static AppSettings Build(IConfiguration configuration)
         {
             var section = configuration.GetSection(Section);
-            return new(section[SqlConnectionStringKey]);
+            return new(section[SqlConnectionStringKey], section[BaseAppUrlKey]);
         }
     }
 }

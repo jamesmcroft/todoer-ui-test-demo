@@ -1,0 +1,72 @@
+.loading-indicator-dark  {
+  color: map-get($theme-colors,'dark');
+
+  .loading-content {
+    border: 3px solid transparent;
+    border-top-color: map-get($theme-colors,'dark');
+    border-bottom-color: map-get($theme-colors,'dark');
+  }
+}
+
+.loading-indicator-light {
+  color: $white;
+
+  .loading-content {
+    border: 3px solid transparent;
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+}
+
+.loading-indicator-primary {
+  color: map-get($theme-colors,'primary');
+
+  .loading-content {
+    border: 3px solid transparent;
+    border-top-color: map-get($theme-colors,'primary');
+    border-bottom-color: map-get($theme-colors,'primary');
+  }
+}
+
+.loading-indicator .loading-text {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2em;
+  margin-top: 0.5em;
+  vertical-align: middle;
+}
+
+.loading-indicator .loading-text img {
+  width: 100%;
+}
+
+.loading-indicator .loading-content {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  -webkit-animation: loader 2s linear infinite;
+  -moz-animation: loader 2s linear infinite;
+  -o-animation: loader 2s linear infinite;
+  animation: loader 2s linear infinite;
+}
+
+.loading-indicator.sm .loading-content {
+  width: 1.5em;
+  height: 1.5em;
+  border-width: 1px;
+}
+
+@keyframes loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
