@@ -7,7 +7,7 @@
       'bg-warning': variant === 'warning',
       'bg-success': variant === 'success',
     }"
-    class="toast align-items-center text-white bg-primary border-0 showing"
+    class="toast align-items-center text-white bg-primary border-0 show"
     role="alert"
     aria-live="assertive"
     aria-atomic="true"

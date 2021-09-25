@@ -22,7 +22,9 @@
         placeholder="Password"
       />
 
-      <t-button class="w-100" @click="signIn">Sign in</t-button>
+      <t-button id="loginButton" class="w-100" @click="signIn"
+        >Sign in</t-button
+      >
     </form>
   </main>
 </template>
