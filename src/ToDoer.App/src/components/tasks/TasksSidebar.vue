@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-stretch bg-white">
+  <div :id="id" class="d-flex flex-column align-items-stretch bg-white">
     <div
       class="
         d-flex
@@ -69,11 +69,7 @@
       </div>
     </t-accordion>
 
-    <task-modal
-      id="editTaskModal"
-      @save="onUpdateTask"
-      :editTask="editTask"
-    />
+    <task-modal id="editTaskModal" @save="onUpdateTask" :editTask="editTask" />
   </div>
 </template>
 

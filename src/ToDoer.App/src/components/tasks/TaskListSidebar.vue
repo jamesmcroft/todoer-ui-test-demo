@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-stretch bg-white">
+  <div :id="id" class="d-flex flex-column align-items-stretch bg-white">
     <div
       class="d-flex align-items-center p-3 text-decoration-none border-bottom"
     >
@@ -129,7 +129,7 @@ export default {
       if (!result.isSuccessStatusCode) {
         showErrorMessage(this, "Couldn't delete task list");
       } else {
-        if (taskList.id === this.selectedTaskList.id) {
+        if (this.selectedTaskList && taskList.id === this.selectedTaskList.id) {
           this.$emit("selected", null);
         }
         this.$emit("updated");
