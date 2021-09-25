@@ -29,7 +29,7 @@ namespace ToDoer.API.Features.Authentication.API
             CancellationToken cancellationToken = default)
         {
             return await MediatedOkAsync(
-                new LoginRequest { Email = request.Email, Password = request.Password },
+                new LoginRequest(request),
                 cancellationToken);
         }
 

@@ -4,10 +4,6 @@
 
     public class LoginRequest : IRequest
     {
-        public LoginRequest()
-        {
-        }
-
         public LoginRequest(LoginRequestDto request)
         {
             Email = request.Email;

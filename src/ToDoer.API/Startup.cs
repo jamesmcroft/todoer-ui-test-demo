@@ -35,15 +35,12 @@ namespace ToDoer.API
             Configuration = configuration;
             HostEnvironment = hostEnvironment;
 
-            IsTesting = Configuration["IsTesting"] == "true";
             IsDevelopment = HostEnvironment.IsDevelopment();
         }
 
         private IConfiguration Configuration { get; }
 
         private IWebHostEnvironment HostEnvironment { get; }
-
-        private bool IsTesting { get; }
 
         private bool IsDevelopment { get; }
 
