@@ -6,13 +6,14 @@
         :taskLists="taskLists"
         :selectedTaskList="selectedTaskList"
         @selected="onTaskListSelected"
+        @updated="onTaskListUpdated"
       />
     </div>
     <div class="col-8">
       <tasks-sidebar
         id="tasksSidebar"
         :selectedTaskList="selectedTaskList"
-        v-if="selectedTaskList"
+        v-if="selectedTaskList?.id"
         @updated="onTaskUpdated"
       />
     </div>
@@ -27,6 +28,7 @@ import { isUndefinedOrNull } from "../core/utils/inspect";
 import authenticationService from "../services/authentication/AuthenticationService";
 import ITaskDetailViewModel from "../services/tasks/models/ITaskDetailViewModel";
 import ITaskListDetailViewModel from "../services/tasks/models/ITaskListDetailViewModel";
+import TaskListDetailViewModel from "../services/tasks/models/TaskListDetailViewModel";
 import ITaskListSummaryViewModel from "../services/tasks/models/ITaskListSummaryViewModel";
 import tasksService from "../services/tasks/TasksService";
 
@@ -65,11 +67,14 @@ export default {
           this.selectedTaskList = result.content;
         }
       } else {
-        this.selectedTaskList = null;
+        this.selectedTaskList = new TaskListDetailViewModel();
       }
     },
     async onTaskUpdated(task: ITaskDetailViewModel) {
       await this.onTaskListSelected(this.selectedTaskList);
+    },
+    async onTaskListUpdated(taskList: ITaskListDetailViewModel) {
+      await this.load();
     },
   },
 };

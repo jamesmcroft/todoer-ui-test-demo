@@ -13,10 +13,10 @@
 
       <t-button
         class="task-item-delete"
+        :icon="['fas', 'trash']"
         variant="danger"
-        @click="onDeleteTask(task)"
-        >Delete</t-button
-      >
+        @click.stop.prevent="onDeleteTask(task)"
+      />
     </div>
     <div class="task-item-due col-10 mb-1 small" v-if="task.dueDate">
       Due {{ $dateFilters.taskDate(task.dueDate) }}

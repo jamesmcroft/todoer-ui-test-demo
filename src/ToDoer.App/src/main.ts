@@ -9,12 +9,14 @@ import RazorWires from "razor-wire";
 import "./assets/scss/app.scss";
 import store from "./store";
 import "bootstrap";
+import FontAwesomeIcons from "./core/styling/FontAwesomeIcons";
 import DateTimeFormat from "./core/styling/DateTimeFormat";
 import CoreComponents from "./core/components/CoreComponents";
 import GlobalToast from "./core/components/messaging/GlobalToast";
 
 const app = createApp(App);
 
+FontAwesomeIcons.install(app);
 DateTimeFormat.install(app);
 GlobalToast.install(app);
 

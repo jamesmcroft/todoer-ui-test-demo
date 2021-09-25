@@ -9,6 +9,7 @@
   >
     <t-loading-indicator v-if="loading" size="sm" :text="loadingText" />
     <span v-else>
+      <font-awesome-icon :icon="icon" v-if="icon" />
       <slot />
     </span>
   </r-btn>
@@ -20,6 +21,7 @@ export default {
   name: "TButton",
   props: {
     to: defineProp([Object, String], false, null),
+    icon: defineProp([Object, String, Array], false, null),
     loading: defineProp(Boolean, false, false),
     loadingText: defineProp(String, false, null),
     variant: defineProp(String, false, "primary"),
