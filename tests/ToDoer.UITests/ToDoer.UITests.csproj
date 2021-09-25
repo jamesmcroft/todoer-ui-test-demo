@@ -31,9 +31,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Elements" />
-    <Folder Include="Tests\Tasks" />
-  </ItemGroup>
-
 </Project>

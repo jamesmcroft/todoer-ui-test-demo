@@ -11,9 +11,9 @@
     using ToDoer.UITests.Pages;
     using ToDoer.UITests.Pages.Authentication;
 
-    public class BaseTestClass
+    public class BaseTestFixture
     {
-        protected BaseTestClass(AppManagerOptions options)
+        protected BaseTestFixture(AppManagerOptions options)
         {
             Options = options;
         }
