@@ -8,7 +8,7 @@
         id="addTaskListButton"
         class="ms-auto"
         :icon="['fas', 'plus']"
-        v-r-toggle.addEditUpdateTaskListModal
+        v-r-toggle.addUpdateTaskListModal
         @click="onAddTaskList"
       />
     </div>
@@ -36,10 +36,10 @@
         <div class="d-flex w-100 align-items-center justify-content-between">
           <strong class="task-list-item-title mb-1">{{ taskList.name }}</strong>
           <t-button
-            class="task-list-item-edit ms-auto me-2"
+            class="task-list-item-edit ms-auto me-1"
             variant="warning"
             :icon="['fas', 'edit']"
-            v-r-toggle.addEditUpdateTaskListModal
+            v-r-toggle.addUpdateTaskListModal
             @click.stop.prevent="onEditTaskList(taskList)"
           />
           <t-button
@@ -53,8 +53,8 @@
     </div>
 
     <task-list-modal
-      id="addEditUpdateTaskListModal"
-      @save="onAddEditUpdateTaskList"
+      id="addUpdateTaskListModal"
+      @save="onAddUpdateTaskList"
       :editTaskList="editTaskList"
     />
   </div>
@@ -97,7 +97,7 @@ export default {
       this.editTaskList = new TaskListDetailViewModel();
       this.$emit("selected", null);
     },
-    async onAddEditUpdateTaskList(addUpdateTaskList: {
+    async onAddUpdateTaskList(addUpdateTaskList: {
       id: string;
       name: string;
       hideModal: () => void;

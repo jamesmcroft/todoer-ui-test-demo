@@ -1,6 +1,7 @@
 /* Inputs */
 export { default as TButton } from './input/TButton.vue';
 export { default as TCheckBox } from './input/TCheckBox.vue';
+export { default as TDatePicker } from './input/TDatePicker.vue';
 export { default as TInput } from './input/TInput.vue';
 export { default as TInputFeedback } from './input/TInputFeedback.vue';
 export { default as TLoadingIndicator } from './input/TLoadingIndicator.vue';

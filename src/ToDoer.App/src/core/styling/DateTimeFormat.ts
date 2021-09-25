@@ -8,7 +8,7 @@ const DateTimeFormat = {
     vueApp.config.globalProperties.$dateFilters = {
       taskDate(value: MomentInput) {
         if (value) {
-          return moment.utc(value).tz(timezone).format("ddd, MMM d");
+          return moment.utc(value).tz(timezone).format("ddd, MMM D");
         }
       },
 

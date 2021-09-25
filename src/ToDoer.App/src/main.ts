@@ -13,6 +13,7 @@ import FontAwesomeIcons from "./core/styling/FontAwesomeIcons";
 import DateTimeFormat from "./core/styling/DateTimeFormat";
 import CoreComponents from "./core/components/CoreComponents";
 import GlobalToast from "./core/components/messaging/GlobalToast";
+import VCalendar from 'v-calendar';
 
 const app = createApp(App);
 
@@ -23,6 +24,7 @@ GlobalToast.install(app);
 app.use(VueAxios, axios);
 app.use(CoreComponents);
 app.use(RazorWires);
+app.use(VCalendar, {});
 app.use(router);
 
 app.use(i18n);

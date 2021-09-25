@@ -38,6 +38,7 @@
         v-for="task in incompleteTasks"
         :key="task.id"
         :task="task"
+        @edit="onEditTask"
         @update="onUpdateTask"
         @delete="onDeleteTask"
       />
@@ -62,10 +63,17 @@
           :task="task"
           @update="onUpdateTask"
           @delete="onDeleteTask"
+          @edit="onEditTask"
           class="completed-task-item"
         />
       </div>
     </t-accordion>
+
+    <task-modal
+      id="editTaskModal"
+      @save="onUpdateTask"
+      :editTask="editTask"
+    />
   </div>
 </template>
 
@@ -73,6 +81,7 @@
 import { isUndefinedOrNull } from "../../core/utils/inspect";
 import { defineProp, idProp } from "../../core/utils/props";
 import IAddTaskRequest from "../../services/tasks/models/IAddTaskRequest";
+import TaskDetailViewModel from "../../services/tasks/models/TaskDetailViewModel";
 import ITaskDetailViewModel from "../../services/tasks/models/ITaskDetailViewModel";
 import tasksService from "../../services/tasks/TasksService";
 import TaskItem from "./TaskItem.vue";
@@ -80,12 +89,13 @@ import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import _ from "lodash";
 import { showErrorMessage } from "../../core/components/messaging/ToastHelper";
+import TaskModal from "./TaskModal.vue";
 
 export default {
   setup() {
     return { v$: useVuelidate() };
   },
-  components: { TaskItem },
+  components: { TaskItem, TaskModal },
   name: "TasksSidebar",
   props: {
     ...idProp,
@@ -93,7 +103,7 @@ export default {
   },
   data() {
     return {
-      editTask: null as ITaskDetailViewModel,
+      editTask: new TaskDetailViewModel(),
       addTask: {
         name: "",
       } as IAddTaskRequest,
@@ -158,7 +168,10 @@ export default {
         }
       }
     },
-    async onUpdateTask(task: ITaskDetailViewModel) {
+    onEditTask(task: ITaskDetailViewModel) {
+      this.editTask = task;
+    },
+    async onUpdateTask(task) {
       var result = await tasksService.updateTaskOnList(
         this.selectedTaskList.id,
         task.id,
@@ -168,6 +181,10 @@ export default {
       if (!result.isSuccessStatusCode()) {
         showErrorMessage(this, "Update task failed");
         return;
+      }
+
+      if (task.hideModal) {
+        task.hideModal();
       }
 
       this.$emit("updated", task);

@@ -12,10 +12,17 @@
       />
 
       <t-button
+        class="task-item-edit me-1"
+        :icon="['fas', 'edit']"
+        variant="warning"
+        @click="onEditTask(task)"
+        v-r-toggle.editTaskModal
+      />
+      <t-button
         class="task-item-delete"
         :icon="['fas', 'trash']"
         variant="danger"
-        @click.stop.prevent="onDeleteTask(task)"
+        @click="onDeleteTask(task)"
       />
     </div>
     <div class="task-item-due col-10 mb-1 small" v-if="task.dueDate">
@@ -34,6 +41,9 @@ export default {
     task: defineProp(Object, true),
   },
   methods: {
+    onEditTask(task: ITaskDetailViewModel) {
+      this.$emit("edit", task);
+    },
     onCompleteTask(task: ITaskDetailViewModel) {
       this.$emit("update", task);
     },
