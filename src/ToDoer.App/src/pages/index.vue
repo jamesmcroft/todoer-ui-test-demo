@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-4">
+    <div class="task-list-container col-lg-4 col-md-5 col-sm-12">
       <task-list-sidebar
         id="taskListSidebar"
         :taskLists="taskLists"
@@ -9,7 +9,7 @@
         @updated="onTaskListUpdated"
       />
     </div>
-    <div class="col-8">
+    <div class="tasks-container col-lg-8 col-md-7 col-sm-12">
       <tasks-sidebar
         id="tasksSidebar"
         :selectedTaskList="selectedTaskList"
@@ -81,4 +81,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 768px) {
+  .task-list-container {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+}
 </style>

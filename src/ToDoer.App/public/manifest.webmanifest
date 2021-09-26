@@ -1,0 +1,22 @@
+{
+  "short_name": "Todoer",
+  "name": "ToDoer - A Simple To Do List Maker",
+  "icons": [
+    {
+      "src": "/assets/images/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/images/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0d6efd",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0d6efd",
+  "description": "A simple To Do list maker"
+}

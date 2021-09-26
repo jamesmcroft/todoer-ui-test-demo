@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="form-signin">
     <form>
       <img class="mb-4" />
       <h1 class="h3 mb-3 fw-normal">Login</h1>
@@ -34,7 +34,6 @@ import { defineComponent } from "@vue/runtime-core";
 import { useVuelidate } from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { showErrorMessage } from "../../core/components/messaging/ToastHelper";
-
 import authenticationService from "../../services/authentication/AuthenticationService";
 
 export default defineComponent({
@@ -63,6 +62,11 @@ export default defineComponent({
       },
     };
   },
+  mounted() {
+    if (authenticationService.hasAuthCookie()) {
+      this.$router.push({ name: "index" });
+    }
+  },
   methods: {
     async signIn(evt: { preventDefault: () => void }) {
       this.v$.$touch();
@@ -87,6 +91,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.form-signin {
+  width: 100%;
+  max-width: 480px;
+  padding: 15px;
+  margin: 0 auto;
+}
 </style>
 
 <route lang="yml">
