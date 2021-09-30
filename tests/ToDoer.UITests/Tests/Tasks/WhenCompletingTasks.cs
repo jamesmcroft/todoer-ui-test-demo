@@ -7,15 +7,15 @@
     using ToDoer.UITests.Pages;
 
     [TestFixtureSource(nameof(TestPlatformOptions))]
-    public class WhenEditingTasks : BaseTestFixture
+    public class WhenCompletingTasks : BaseTestFixture
     {
-        public WhenEditingTasks(AppManagerOptions options)
+        public WhenCompletingTasks(AppManagerOptions options)
             : base(options)
         {
         }
 
         [Test]
-        public void ShouldUpdateExistingTaskWithNewName()
+        public void ShouldMoveTaskToCompletedTasks()
         {
             // Arrange
             var taskListName = $"Task List {DateTime.UtcNow.Ticks}";
@@ -25,13 +25,11 @@
                 .AddNewTaskList(taskListName)
                 .AddNewTaskToTaskList(taskListName, taskName);
 
-            var newTaskName = $"Edit Task {DateTime.UtcNow.Ticks}";
-
             // Act
-            page.EditTaskOnTaskList(taskListName, taskName, newTaskName, string.Empty);
+            page.CompleteTaskOnTaskList(taskListName, taskName);
 
             // Assert
-            page.TasksSidebar.VerifyTaskShown(newTaskName);
+            page.TasksSidebar.VerifyTaskCompleted(taskName);
 
             Cleanup(page, taskListName);
         }

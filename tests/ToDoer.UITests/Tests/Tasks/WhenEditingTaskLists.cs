@@ -18,10 +18,10 @@
         public void ShouldUpdateExistingTaskListWithNewName()
         {
             // Arrange
-            var taskListName = $"Tasks {DateTime.Now:g}";
+            var taskListName = $"Tasks {DateTime.UtcNow.Ticks}";
             var page = new HomePage().AddNewTaskList(taskListName).Wait<HomePage>(100);
 
-            var newTaskListName = $"Edit Tasks {DateTime.Now:g}";
+            var newTaskListName = $"Edit Tasks {DateTime.UtcNow.Ticks}";
 
             // Act
             page.EditTaskList(taskListName, newTaskListName);

@@ -46,5 +46,11 @@
             SelectTaskList(taskListName).TasksSidebar.EditTask(taskName, newTaskName, newTaskNote);
             return this;
         }
+
+        public HomePage CompleteTaskOnTaskList(string taskListName, string taskName)
+        {
+            SelectTaskList(taskListName).TasksSidebar.CompleteTask(taskName);
+            return this;
+        }
     }
 }

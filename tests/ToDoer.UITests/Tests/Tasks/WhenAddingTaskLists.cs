@@ -21,7 +21,7 @@
         {
             // Arrange
             var page = new HomePage();
-            var taskListName = $"Tasks {DateTime.Now:g}";
+            var taskListName = $"Tasks {DateTime.UtcNow.Ticks}";
 
             // Act
             page.AddNewTaskList(taskListName);

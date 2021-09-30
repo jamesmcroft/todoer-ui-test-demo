@@ -39,6 +39,8 @@
 
         public TaskModal TaskModal => AppManager.App.FindWebElement(By.Id("editTaskModal"));
 
+        public bool IsComplete => CompleteCheckBox.IsChecked;
+
         public void MarkAsComplete()
         {
             CompleteCheckBox.CheckOn();

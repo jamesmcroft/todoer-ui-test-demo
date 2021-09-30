@@ -20,11 +20,11 @@
         public void ShouldAddTask()
         {
             // Arrange
-            var taskListName = $"Tasks {DateTime.Now:g}";
+            var taskListName = $"Tasks {DateTime.UtcNow.Ticks}";
             var page = new HomePage()
                 .AddNewTaskList(taskListName);
 
-            var taskName = $"Task {DateTime.Now:g}";
+            var taskName = $"Task {DateTime.UtcNow.Ticks}";
 
             // Act
             page.AddNewTaskToTaskList(taskListName, taskName);
@@ -39,7 +39,7 @@
         public void ShouldNotAddTaskListIfNameEmpty()
         {
             // Arrange
-            var taskListName = $"Tasks {DateTime.Now:g}";
+            var taskListName = $"Tasks {DateTime.UtcNow.Ticks}";
             var page = new HomePage()
                 .AddNewTaskList(taskListName);
 
