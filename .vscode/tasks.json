@@ -19,6 +19,17 @@
       "script": "install",
       "path": "src/ToDoer.App/",
       "problemMatcher": [],
-    }
+    },
+    {
+      "label": "run_ui_tests",
+      "command": "dotnet",
+      "type": "shell",
+      "group": "test",
+      "args": [
+        "test",
+        "${workspaceFolder}/tests/ToDoer.UITests/ToDoer.UITests.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
   ]
 }
