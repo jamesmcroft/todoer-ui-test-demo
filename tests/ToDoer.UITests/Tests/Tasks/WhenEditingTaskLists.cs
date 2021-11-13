@@ -1,7 +1,9 @@
-﻿namespace ToDoer.UITests.Tests.Tasks
+namespace ToDoer.UITests.Tests.Tasks
 {
     using System;
+    using System.Linq;
     using Legerity;
+    using Legerity.Extensions;
     using NUnit.Framework;
     using ToDoer.UITests.Infrastructure.Tests;
     using ToDoer.UITests.Pages;
@@ -19,7 +21,8 @@
         {
             // Arrange
             var taskListName = $"Tasks {DateTime.UtcNow.Ticks}";
-            var page = new HomePage().AddNewTaskList(taskListName).Wait<HomePage>(100);
+            var page = new HomePage().AddNewTaskList(taskListName)
+                .WaitUntil(homePage => homePage.TaskListSidebar.TaskLists.FirstOrDefault(x => x.Name == taskListName) != null, ImplicitWait);
 
             var newTaskListName = $"Edit Tasks {DateTime.UtcNow.Ticks}";
 

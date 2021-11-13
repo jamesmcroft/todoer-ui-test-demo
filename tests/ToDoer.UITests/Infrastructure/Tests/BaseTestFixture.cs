@@ -1,11 +1,15 @@
-﻿namespace ToDoer.UITests.Infrastructure.Tests
+namespace ToDoer.UITests.Infrastructure.Tests
 {
     using System;
     using System.Collections.Generic;
     using Legerity;
     using Legerity.Web;
+    using MADE.Data.Validation.Extensions;
+    using Microsoft.Edge.SeleniumTools;
     using Microsoft.Extensions.Configuration;
     using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
     using OpenQA.Selenium.Remote;
     using ToDoer.UITests.Infrastructure.Configuration;
     using ToDoer.UITests.Pages;
@@ -13,6 +17,8 @@
 
     public class BaseTestFixture
     {
+        public static TimeSpan ImplicitWait => TimeSpan.FromSeconds(5);
+
         protected BaseTestFixture(AppManagerOptions options)
         {
             Options = options;
@@ -22,11 +28,11 @@
         {
             new WebAppManagerOptions(WebAppDriverType.Chrome, Environment.CurrentDirectory)
             {
-                Url = "https://localhost:3000/", Maximize = true, ImplicitWait = TimeSpan.FromSeconds(5)
+                Url = "https://localhost:3000/", Maximize = true, ImplicitWait = ImplicitWait
             },
             new WebAppManagerOptions(WebAppDriverType.EdgeChromium, Environment.CurrentDirectory)
             {
-                Url = "https://localhost:3000/", Maximize = true, ImplicitWait = TimeSpan.FromSeconds(5)
+                Url = "https://localhost:3000/", Maximize = true, ImplicitWait = ImplicitWait
             }
         };
 
@@ -46,9 +52,45 @@
 
             Settings = UITestSettings.Build(configuration);
 
+            switch (Options)
+            {
+                case WebAppManagerOptions webOptions:
+                    webOptions.DriverOptions = webOptions.DriverType switch
+                    {
+                        WebAppDriverType.Chrome => GetChromeOptions(this.Settings),
+                        _ => webOptions.DriverOptions
+                    };
+
+                    break;
+            }
+
             AppManager.StartApp(Options);
 
             this.Login();
+        }
+
+        private static DriverOptions GetEdgeChromiumOptions(UITestSettings settings)
+        {
+            var options = new EdgeOptions();
+
+            if (!settings.BrowserMode.IsNullOrWhiteSpace())
+            {
+                options.AddArguments(settings.BrowserMode);
+            }
+
+            return options;
+        }
+
+        private static DriverOptions GetChromeOptions(UITestSettings settings)
+        {
+            var options = new ChromeOptions();
+
+            if (!settings.BrowserMode.IsNullOrWhiteSpace())
+            {
+                options.AddArguments(settings.BrowserMode);
+            }
+
+            return options;
         }
 
         [TearDown]
