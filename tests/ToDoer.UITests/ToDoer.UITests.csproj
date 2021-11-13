@@ -8,18 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="33.1.1" />
-    <PackageReference Include="Legerity.Core" Version="0.6.5" />
-    <PackageReference Include="Legerity.Web" Version="0.6.5" />
+    <PackageReference Include="Legerity.Core" Version="0.7.0-preview1" />
+    <PackageReference Include="Legerity.Web" Version="0.7.0-preview1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="nunit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
     <PackageReference Include="RazorWire.Selenium" Version="0.2.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="94.0.4606.4101" />
-    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="94.0.986" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.0.1" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="95.0.4638.6900" />
+    <PackageReference Include="Selenium.WebDriver.MSEdgeDriver" Version="95.0.1020.30" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
   </ItemGroup>
 
