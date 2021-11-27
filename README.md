@@ -9,6 +9,7 @@ The UI test project uses the [Legerity](https://github.com/MADE-Apps/legerity) f
 This project has been used as a demo for my **Should you write UI tests?** presentation at the following events:
 
 - [DDD East Midlands 2021](https://www.dddeastmidlands.com/2021/speakers/james-croft/)
+- DDD Reading 2021
 
 ## What's shown in the demo? 💭
 
