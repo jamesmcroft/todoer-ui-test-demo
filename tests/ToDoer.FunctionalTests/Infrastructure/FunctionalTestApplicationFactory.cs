@@ -70,14 +70,11 @@ namespace ToDoer.FunctionalTests.Infrastructure
                                             });
 
                                         services.AddMvcCore()
-                                            .AddAuthorization(options =>
-                                            {
-                                                options.DefaultPolicy =
+                                            .AddAuthorization(options => options.DefaultPolicy =
                                                     new AuthorizationPolicyBuilder(TestAuthenticationHandler
                                                             .TestAuthenticationScheme)
                                                         .RequireAuthenticatedUser()
-                                                        .Build();
-                                            });
+                                                        .Build());
 
                                         services.AddAuthentication(
                                                 options =>
@@ -124,7 +121,7 @@ namespace ToDoer.FunctionalTests.Infrastructure
             builder.ConfigureServices(
                 services =>
                 {
-                    services.AddLogging(loggingBuilder => { loggingBuilder.AddSerilog(); });
+                    services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog());
                     this.configServices?.Invoke(services);
                     services.BuildServiceProvider();
                 });

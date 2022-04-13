@@ -1,21 +1,20 @@
 namespace ToDoer.API.Infrastructure.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using Features.Identity.Data;
-    using Identity;
     using MADE.Data.EFCore;
     using MADE.Data.EFCore.Extensions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Microsoft.Extensions.DependencyInjection;
+    using ToDoer.API.Infrastructure.Identity;
 
     public static class DataExtensions
     {
-        public static IServiceCollection AddAppDbContext(this IServiceCollection services, string sqlConnectionString,
+        public static IServiceCollection AddAppDbContext(
+            this IServiceCollection services,
+            string sqlConnectionString,
             bool isProduction = false)
         {
             services.AddDbContext<AppDbContext>(options =>

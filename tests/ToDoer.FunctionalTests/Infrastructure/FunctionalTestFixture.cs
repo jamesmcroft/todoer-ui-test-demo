@@ -9,6 +9,7 @@ namespace ToDoer.FunctionalTests.Infrastructure
     using Microsoft.Extensions.DependencyInjection;
     using NUnit.Framework;
     using Respawn;
+    using Respawn.Graph;
     using ToDoer.API.Features.Identity.Data;
     using ToDoer.API.Infrastructure.Configuration;
     using ToDoer.API.Infrastructure.Data;
@@ -50,8 +51,13 @@ namespace ToDoer.FunctionalTests.Infrastructure
 
             this.databaseCheckpoint = new Checkpoint
             {
-                TablesToIgnore =
-                    new[] { "__EFMigrationsHistory", "AspNetRoles", "RolesPermissions", "UserPermissions" },
+                TablesToIgnore = new Table[]
+                {
+                    new("__EFMigrationsHistory"),
+                    new ("AspNetRoles"),
+                    new("RolesPermissions"),
+                    new("UserPermissions")
+                },
                 DbAdapter = DbAdapter.SqlServer
             };
 
