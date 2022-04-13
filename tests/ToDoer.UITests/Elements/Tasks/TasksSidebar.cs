@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Infrastructure.Elements;
     using Legerity;
     using Legerity.Extensions;
     using Legerity.Web.Elements;
@@ -10,6 +9,7 @@
     using Legerity.Web.Extensions;
     using OpenQA.Selenium;
     using OpenQA.Selenium.Remote;
+    using ToDoer.UITests.Infrastructure.Elements;
 
     public class TasksSidebar : WebElementWrapper
     {

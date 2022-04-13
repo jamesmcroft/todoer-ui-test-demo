@@ -3,13 +3,13 @@ namespace ToDoer.API.Infrastructure.Data
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Features.Tasks.Data;
-    using Identity;
     using MADE.Data.EFCore.Converters;
     using MADE.Data.EFCore.Extensions;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using ToDoer.API.Features.Identity.Data;
+    using ToDoer.API.Features.Tasks.Data;
+    using ToDoer.API.Infrastructure.Identity;
 
     public class
         AppDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>

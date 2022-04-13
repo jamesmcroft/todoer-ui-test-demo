@@ -32,7 +32,7 @@
     "made-vue-range-selector": "^0.1.0-alpha.4",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.34",
-    "razor-wire": "^0.0.1-alpha-81",
+    "razor-wire": "^0.0.1-alpha-101",
     "tiny-emitter": "^2.1.0",
     "v-calendar": "^3.0.0-alpha.6",
     "vue": "^3.2.21",

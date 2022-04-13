@@ -1,8 +1,6 @@
 namespace ToDoer.API.Infrastructure.Identity
 {
-    using System;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
     using ToDoer.API.Features.Identity.Data;
     using ToDoer.API.Infrastructure.Data;

@@ -1,7 +1,7 @@
 ﻿namespace ToDoer.API.Features.Tasks.Data
 {
     using System;
-    using Domain.UpdateTask;
+    using ToDoer.API.Features.Tasks.Domain.UpdateTask;
     using ToDoer.API.Infrastructure.Data;
 
     public class TaskListTask : UserGeneratedEntityBase

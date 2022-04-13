@@ -1,7 +1,5 @@
 ﻿namespace ToDoer.API.Infrastructure.Exceptions
 {
-    using System;
-    using System.Net;
     using System.Threading.Tasks;
     using MADE.Web.Exceptions;
     using MADE.Web.Extensions;
