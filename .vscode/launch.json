@@ -17,7 +17,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build_todoer",
-      "program": "${workspaceFolder}/src/ToDoer.API/bin/Debug/net5.0/ToDoer.API.dll",
+      "program": "${workspaceFolder}/src/ToDoer.API/bin/Debug/net6.0/ToDoer.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/ToDoer.API",
       "stopAtEntry": false,
