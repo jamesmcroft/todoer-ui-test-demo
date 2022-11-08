@@ -32,7 +32,7 @@ This will run up the web API on https://localhost:5001, and the ToDoer app will 
 
 Now that you have the application running locally on your machine, it's time to run the tests!
 
-**Note**, the UI test project runs tests on **Google Chrome (v100)** and **Microsoft Edge (v100)**. You will need to ensure you have these versions installed. If you are using an older version of these browers, you will need to upgrade. If you are using a newer version of these browsers, you will need to update the `<PackageReference>` in the **ToDoer.UITests.csproj** file for **Selenium.WebDriver.ChromeDriver** and **Selenium.WebDriver.MSEdgeDriver** to the latest versions.
+**Note**, the UI test project runs tests on **Google Chrome (v107)** and **Microsoft Edge (v106)**. You will need to ensure you have these versions installed. If you are using an older version of these browers, you will need to upgrade. If you are using a newer version of these browsers, you will need to update the `<PackageReference>` in the **ToDoer.UITests.csproj** file for **Selenium.WebDriver.ChromeDriver** and **Selenium.WebDriver.MSEdgeDriver** to the latest versions.
 
 To run the tests, you can do this within Visual Studio Code by running the command **CTRL+Shift+P**, typing in **Run Test Task**, hitting enter, and selecting the **run_ui_tests** option. 
 
