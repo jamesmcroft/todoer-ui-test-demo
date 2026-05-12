@@ -1,5 +1,8 @@
 # ToDoer UI Test Example
 
+> [!IMPORTANT]
+> This sample has been archived, for reference only.
+
 This is an example project showcasing how to write maintainable UI tests using the Selenium framework with C#.
 
 The repo contains a Vue 3 application (`src/ToDoer.App`), a .NET 6 Web API (`src/ToDoer.API`), a functional test project (`tests/ToDoer.FunctionalTests`), and the Selenium UI test project (`tests/ToDoer.UITests`).
